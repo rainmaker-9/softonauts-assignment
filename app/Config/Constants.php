@@ -97,3 +97,5 @@ define('EVENT_PRIORITY_HIGH', 10);
 /* APP-SPECIFIC CONSTANTS */
 defined("BASE_URL_ENDPOINT") || define("BASE_URL_ENDPOINT", "https://softonauts.com/clients/Android/");
 defined("BASE_URL_ENDPOINT_NEW") || define("BASE_URL_ENDPOINT_NEW", "https://idsqi.com/isdqi-api/");
+defined("AUTH_USER_ID") || define("AUTH_USER_ID", 43467);
+defined("AUTH_HEADER_JWT") || define("AUTH_HEADER_JWT", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NTI5NDd9.CKU4Kis4s280vG4gcd8ZDcDt4onZhCKuZsH56_bqD1k");

@@ -2,7 +2,7 @@
 <!-- Start Page Content here -->
 <!-- ============================================================== -->
 
-<div class="content-page" class="flex-shrink-0">
+<div class="content-page">
   <div class="content">
 
     <!-- Start Content-->

@@ -5,12 +5,12 @@
 <script src="/assets/js/jquery.ui.scrolltabs.js"></script>
 <script>
   var $tabs;
-  var scrollEnabled;
+  var scrollEnabled = true;
   $(function() {
 
 
 
-      $('#example_3').scrollTabs({
+      $('.slots').scrollTabs({
         scrollOptions: {
           easing: 'swing',
           enableDebug: false,
@@ -30,12 +30,16 @@
   });
 
   $(function() {
-    $('#example_3').hide();
-    $('#address_id').change(function() {
-      if ($('#address_id').val() == 'dr1' || $('#address_id').val() == 'dr2') {
-        $('#example_3').show();
+    $('.slots').hide();
+    $('.address_id').on('change', function() {
+      if ($(this).val() !== '') {
+        const ele = $(this).find(`option[value="${$(this).val()}"]`)
+        if (ele) {
+          $('.slots').hide();
+          $(`#${ele.data('target')}`).show();
+        }
       } else {
-        $('#example_3').hide();
+        $('.slots').hide();
       }
     });
   });

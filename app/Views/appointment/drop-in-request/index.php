@@ -25,7 +25,7 @@
       </div>
       <!-- end page title -->
 
-      <?php if ($navigators->code === 200 && count($navigators->submit_sample_navigator_list) > 0) : ?>
+      <?php if (count($navigators) > 0) : ?>
         <div class="row">
 
           <div class="col-md-12">
@@ -48,7 +48,7 @@
                   </div>
 
                   <div class="row">
-                    <?php foreach ($navigators->submit_sample_navigator_list as $navigator) : ?>
+                    <?php foreach ($navigators as $navigator) : ?>
                       <div class="col-md-10">
 
                         <div class="widget-rounded-circle card-box">
@@ -71,235 +71,88 @@
                           </div>
 
                           <div class="mt-3" id="select_dr" style="display:none">
-                            <div class="form-group col-md-8">
-                              <label for="">Select Address</label>
-                              <select class="form-control chosen-select-deselect" name="address_id" id="address_id">
-                                <option value=""></option>
-                                <?php for ($i = 0; $i < count($navigator->location_id); $i++) : ?>
-                                  <option value="<?= $navigator->location_id[$i] ?>"><?= $navigator->navigator_location[$i] ?></option>
-                                <?php endfor; ?>
-                              </select>
-                            </div>
-                            <script>
-                              var scrollEnabled = true;
-                            </script>
-
-
-                            <div id="example_3" class="p-3 b1 slots" style="display:none">
-                              <ul role="tablist">
-                                <li role="tab"><a href="#tabs-1" class="text-center" role="presentation">Mon
-                                    1 jan
-                                    <br>
-                                    <small class="fdc">13 slot available</small></a>
-                                </li>
-                                <li role="tab"><a href="#tabs-2" class="text-center" role="presentation">Tue
-                                    2 jan
-                                    <br>
-                                    <small class="fdc">13 slot available</small>
-                                  </a></li>
-                                <li role="tab"><a href="#tabs-3" class="text-center" role="presentation">Wed
-                                    3 jan
-                                    <br>
-                                    <small class="fdc">13 slot available</small>
-                                  </a></li>
-                                <li role="tab"><a href="#tabs-4" class="text-center" role="presentation">Thu
-                                    4 jan
-                                    <br>
-                                    <small class="fdc">13 slot available</small>
-                                  </a></li>
-                                <li role="tab"><a href="#tabs-5" class="text-center" role="presentation">Fri
-                                    5 jan
-                                    <br>
-                                    <small class="fdc">13 slot available</small>
-                                  </a></li>
-                                <li role="tab"><a href="#tabs-6" class="text-center" role="presentation">Sat
-                                    6 jan
-                                    <br>
-                                    <small class="fdc">13 slot available</small></a>
-                                </li>
-                                <li role="tab"><a href="#tabs-7" class="text-center" role="presentation">Sun
-                                    7 jan
-                                    <br>
-                                    <small class="fdc">13 slot available</small></a>
-                                </li>
-                                <li role="tab">
-
-                                  <a href="#tabs-8" role="presentation">Mon
-                                    8 jan
-                                    <br>
-                                    <small class="fdc">13 slot available</small>
-                                  </a>
-                                </li>
-                                <li role="tab"><a href="#tabs-9" class="text-center" role="presentation">Tue
-                                    9 jan
-                                    <br>
-                                    <small class="fdc">13 slot available</small>
-                                  </a></li>
-                              </ul>
-                              <div>
-                                <div id="tabs-1" role="tabpanel">
-                                  <div class="col-md-12 text-center mb-4"><b>Today,
-                                      Mon 1
-                                      Jan</b></div>
-                                  <div class="col-md-12 mb-2"><b>Morning:</b> <small>5 slots
-                                      available</small></div>
-                                  <div class="col-md-12 mb-3">
-                                    <a href="javascript:void(0);"> <button class="btn btn-sm btn-outline-primary mr-2 slots-d-booked">Booked</button></a>
-                                    <a href="appointment-details.html"> <button class="btn btn-sm btn-outline-primary mr-2">09:00
-                                        am</button></a>
-                                    <a href="appointment-details.html"> <button class="btn btn-sm btn-outline-primary mr-2">10:00
-                                        am</button></a>
-                                    <a href="appointment-details.html"><button class="btn btn-sm btn-outline-primary mr-2">11:00
-                                        am</button></a>
-                                    <a href="appointment-details.html"> <button class="btn btn-sm btn-outline-primary mr-2">12:00
-                                        am</button></a>
-
-
-                                  </div>
-                                  <div class="col-md-12 mb-2"><b>Afternoon:</b><small> 3 slots
-                                      available</small></div>
-                                  <div class="col-md-12 mb-3">
-                                    <button class="btn btn-sm btn-outline-primary mr-2">01:00
-                                      pm</button>
-                                    <button class="btn btn-sm btn-outline-primary mr-2">02:00
-                                      pm</button>
-                                    <button class="btn btn-sm btn-outline-primary mr-2">03:00
-                                      pm</button>
-
-
-                                  </div>
-                                  <div class="col-md-12 mb-2"><b>Evening:</b><small> 3 slots
-                                      available</small></div>
-                                  <div class="col-md-12 mb-3">
-                                    <button class="btn btn-sm btn-outline-primary mr-2">06:00
-                                      pm</button>
-                                    <button class="btn btn-sm btn-outline-primary mr-2">06:30
-                                      pm</button>
-                                    <button class="btn btn-sm btn-outline-primary mr-2">07:00
-                                      pm</button>
-
-                                  </div>
-                                  <div class="col-md-12 mb-2"><b>Night:</b><small> 2 slots
-                                      available</small></div>
-                                  <div class="col-md-12 mb-3">
-                                    <button class="btn btn-sm btn-outline-primary mr-2">09:00
-                                      pm</button>
-                                    <button class="btn btn-sm btn-outline-primary mr-2">10:00
-                                      pm</button>
-
-
-                                  </div>
-
-
-
-                                </div>
-                                <div id="tabs-2" role="tabpanel">
-                                  <div class="col-md-12 text-center mb-4"><b>Tue 2
-                                      Jan</b></div>
-                                  <div class="col-md-12 mb-2"><b>Morning:</b> <small>2 slots
-                                      available</small></div>
-                                  <div class="col-md-12 mb-3">
-                                    <button class="btn btn-sm btn-outline-primary mr-2">08:00
-                                      am</button>
-                                    <button class="btn btn-sm btn-outline-primary mr-2">09:00
-                                      am</button>
-
-
-
-                                  </div>
-                                  <div class="col-md-12 mb-2"><b>Afternoon:</b><small> 5 slots
-                                      available</small></div>
-                                  <div class="col-md-12 mb-3">
-                                    <button class="btn btn-sm btn-outline-primary mr-2">01:00
-                                      pm</button>
-                                    <button class="btn btn-sm btn-outline-primary mr-2">02:00
-                                      pm</button>
-                                    <button class="btn btn-sm btn-outline-primary mr-2">03:00
-                                      pm</button>
-                                    <button class="btn btn-sm btn-outline-primary mr-2">04:00
-                                      pm</button>
-                                    <button class="btn btn-sm btn-outline-primary mr-2">04:30
-                                      pm</button>
-
-
-                                  </div>
-                                  <div class="col-md-12 mb-2"><b>Evening:</b> <small>3 slots
-                                      available</small></div>
-                                  <div class="col-md-12 mb-3">
-                                    <button class="btn btn-sm btn-outline-primary mr-2">06:00
-                                      pm</button>
-                                    <button class="btn btn-sm btn-outline-primary mr-2">06:30
-                                      pm</button>
-                                    <button class="btn btn-sm btn-outline-primary mr-2">07:00
-                                      pm</button>
-
-                                  </div>
-                                  <div class="col-md-12 mb-2"><b>Night:</b> <small>2 slots
-                                      available</small></div>
-                                  <div class="col-md-12 mb-3">
-                                    <button class="btn btn-sm btn-outline-primary mr-2">09:00
-                                      pm</button>
-                                    <button class="btn btn-sm btn-outline-primary mr-2">10:00
-                                      pm</button>
-
-
-                                  </div>
-                                </div>
-                                <div id="tabs-3" role="tabpanel">
-                                  <div class="col-md-12 text-center mb-4"><b>Wed 3
-                                      Jan</b></div>
-
-                                  <div class="col-md-12 mb-3">
-                                    <span>No slots Available</span>
-
-
-
-                                  </div>
-                                  <div class="col-md-12 mb-2"><b>Afternoon:</b> <small>5 slots
-                                      available</small></div>
-                                  <div class="col-md-12 mb-3">
-                                    <button class="btn btn-sm btn-outline-primary mr-2">01:00
-                                      pm</button>
-                                    <button class="btn btn-sm btn-outline-primary mr-2">02:00
-                                      pm</button>
-                                    <button class="btn btn-sm btn-outline-primary mr-2">03:00
-                                      pm</button>
-                                    <button class="btn btn-sm btn-outline-primary mr-2">04:00
-                                      pm</button>
-                                    <button class="btn btn-sm btn-outline-primary mr-2">04:30
-                                      pm</button>
-
-
-                                  </div>
-                                  <div class="col-md-12 mb-2"><b>Evening:</b> <small>3 slots
-                                      available</small></div>
-                                  <div class="col-md-12 mb-3">
-                                    <button class="btn btn-sm btn-outline-primary mr-2">06:00
-                                      pm</button>
-                                    <button class="btn btn-sm btn-outline-primary mr-2">06:30
-                                      pm</button>
-                                    <button class="btn btn-sm btn-outline-primary mr-2">07:00
-                                      pm</button>
-
-                                  </div>
-                                  <div class="col-md-12 mb-2"><b>Night:</b> <small>2 slots
-                                      available</small></div>
-                                  <div class="col-md-12 mb-3">
-                                    <button class="btn btn-sm btn-outline-primary mr-2">09:00
-                                      pm</button>
-                                    <button class="btn btn-sm btn-outline-primary mr-2">10:00
-                                      pm</button>
-                                  </div>
-
+                            <form id="frm-location-select">
+                              <div class="form-group col-md-8">
+                                <label for="">Select Address</label>
+                                <select class="form-control chosen-select-deselect address_id" id="address_id">
+                                  <option value="" selected disabled>Select Address</option>
+                                  <?php for ($i = 0; $i < count($navigator->location_id); $i++) : ?>
+                                    <option data-target="location-<?= $navigator->location_id[$i] ?>" value="<?= $navigator->location_id[$i] ?>">
+                                      <?= $navigator->navigator_location[$i] ?>
+                                    </option>
+                                  <?php endfor; ?>
+                                </select>
+                              </div>
+                            </form>
+                            <?php
+                            foreach ($navigator->time_slots as $loc) :
+                            ?>
+                              <div id="location-<?= $loc->location ?>" class="p-3 b1 slots" style="display:none">
+                                <ul role="tablist">
+                                  <?php foreach ($loc->slots as $key => $slot) : ?>
+                                    <li role="tab">
+                                      <a href="#tabs-<?= $key ?>" class="text-center" role="presentation">
+                                        <?php
+                                        if ($key === 0 || $key === 1) {
+                                          echo trim(substr($slot->show_date, strpos($slot->show_date, ",") + 1));
+                                        } else {
+                                          echo $slot->show_date;
+                                        }
+                                        ?>
+                                        <br>
+                                        <small class="fdc"><?= $slot->count ?> slot available</small>
+                                      </a>
+                                    </li>
+                                  <?php endforeach; ?>
+                                </ul>
+                                <div>
+                                  <?php foreach ($loc->slots as $key => $slot) : ?>
+                                    <div id="tabs-<?= $key ?>" role="tabpanel">
+                                      <div class="col-md-12 text-center font-weight-bold mb-4"><?= $slot->show_date ?></div>
+                                      <?php
+                                      if (!empty($slot->slotes)) :
+                                        foreach ($slot->slotes as $key => $value) :
+                                      ?>
+                                          <div class="col-md-12 mb-2">
+                                            <b><?= ucfirst($key) ?>:</b>
+                                            <?php
+                                            if (!empty($slot->slotes->$key)) :
+                                            ?>
+                                              <small><?= count($value) ?> slots available</small>
+                                            <?php else : ?>
+                                              <small>No slots available.</small>
+                                            <?php endif; ?>
+                                          </div>
+                                          <div class="col-md-12 mb-3">
+                                            <div class="d-flex align-items-center flex-wrap" style="gap: .5em">
+                                              <?php if (!empty($slot->slotes->$key) && count($slot->slotes->$key) > 0) : ?>
+                                                <?php foreach ($value as $s) :
+                                                  $data = [
+                                                    'location' => $loc->location,
+                                                    'date' => $slot->current_date,
+                                                    'time' => $s
+                                                  ];
+                                                  $query = http_build_query($data);
+                                                ?>
+                                                  <a href="/book-appointment?<?= $query ?>">
+                                                    <button class="btn btn-sm btn-outline-primary"><?= $s ?></button>
+                                                  </a>
+                                              <?php
+                                                endforeach;
+                                              endif; ?>
+                                            </div>
+                                          </div>
+                                      <?php
+                                        endforeach;
+                                      endif;
+                                      ?>
+                                    </div>
+                                  <?php endforeach; ?>
                                 </div>
                               </div>
-
-                            </div>
+                            <?php endforeach; ?>
                           </div>
-
                         </div>
-
-
                       </div>
                     <?php endforeach; ?>
                   </div>

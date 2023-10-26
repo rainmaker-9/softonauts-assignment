@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-100">
+<html lang="en">
 
 <head>
   <!-- Character Set -->
@@ -25,7 +25,7 @@
   <?= @$renderStyles ?>
 </head>
 
-<body class="h-100 d-flex flex-column bg-body-tertiary">
+<body>
   <?= $this->include('layouts/header') ?>
   <?= $this->renderSection('page-content') ?>
   <?= $this->include('layouts/wrapper-end') ?>

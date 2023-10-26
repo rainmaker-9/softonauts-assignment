@@ -38,8 +38,9 @@
                 </div>
                 <div class="form-group col-md-4">
                   <label for="appointment_type">Select Appointment Type</label>
-                  <select class="form-control chosen-select-deselect" name="appointment_type" id="appointment_type">
+                  <select class="form-control chosen-select-deselect" name="appointment_type" id="appointment_type" required>
                     <option value="" selected disabled>Select Appointment Type</option>
+                    <option value="1">Face-to-face</option>
                     <?php foreach ($navigator->appointment_type as $apt_type) : ?>
                       <option value="<?= $apt_type->id ?>"><?= $apt_type->appointment_type ?></option>
                     <?php endforeach; ?>

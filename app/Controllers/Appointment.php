@@ -13,7 +13,7 @@ class Appointment extends BaseController
   {
     $navigators = [];
     $navigator_details = $this->getNavigatorDetailsById();
-    if ($navigator_details->code === 200) {
+    if ($navigator_details->code === 200 && $navigator_details->status === true) {
       foreach ($navigator_details->submit_sample_navigator_list as $navigator) {
         $navigator->time_slots = [];
         foreach ($navigator->location_id as $location) {
@@ -42,11 +42,13 @@ class Appointment extends BaseController
     if (!empty($req->getGet('location')) && !empty($req->getGet('date')) && !empty($req->getGet('time'))) {
       $location = filter_var($req->getGet('location'), FILTER_SANITIZE_NUMBER_INT);
       if ($location !== false) {
+        $dt = $req->getGet('date');
         $date = new Time(strval($req->getGet('date') . $req->getGet('time')), new DateTimeZone(app_timezone()));
         $navigators = $this->getNavigatorDetailsById();
-        if ($navigators->code === 200 && count($navigators->submit_sample_navigator_list) > 0) {
+        if ($navigators->code === 200 && $navigators->status === true && count($navigators->submit_sample_navigator_list) > 0) {
           session()->setFlashdata('location', $location);
-          session()->setFlashdata('date', $date);
+          session()->setFlashdata('date', $dt);
+          session()->setFlashdata('time', $req->getGet('time'));
           $navigator =  $navigators->submit_sample_navigator_list[0];
           session()->setFlashdata('navigator', $navigator);
           $key = array_search($location, $navigator->location_id);
@@ -71,8 +73,45 @@ class Appointment extends BaseController
 
   public function bookAppointmentPost()
   {
-    $data = session()->getFlashdata();
-    return json_encode($data);
+    $flashData = session()->getFlashdata();
+    if (!empty($flashData) && !empty($this->request->getPost('appointment_type'))) {
+      $data = [
+        'user_id' => AUTH_USER_ID,
+        'location_id' => $flashData['location'],
+        'appointment_type' => $this->request->getPost('appointment_type'),
+        'appointment_date' => $flashData['date'],
+        'appointment_time' => $flashData['time'],
+        'appointment_field' => 1
+      ];
+      $curl = \Config\Services::curlrequest(['baseURI' => BASE_URL_ENDPOINT_NEW]);
+      $response_apt = $curl->post(
+        'https://idsqi.com/isdqi-api/book-appointment',
+        [
+          'form_params' => $data,
+          'headers' => [
+            "Authorization" => AUTH_HEADER_JWT
+          ],
+          'verify' => false,
+          'allow_redirects' => false
+        ]
+      );
+      $body = json_decode($response_apt->getBody());
+      if ($body->code === 200) {
+        $content = [
+          'status' => $body->status,
+          'message' => $body->status ? "Appointment booked successfully." : "Failed to book appointment."
+        ];
+        $data['pageTitle'] = 'Appointment Status';
+        $data['pageContent'] = view('appointment/apt-booked/index', $content);
+        return view('render', $data);
+      } else {
+      }
+    } else {
+      $content = ['status' => false, 'message' => 'Something went wrong.'];
+      $data['pageTitle'] = 'Appointment Status';
+      $data['pageContent'] = view('appointment/apt-booked/index', $content);
+      return view('render', $data);
+    }
   }
 
   private function getNavigatorDetailsById(int $navigator_id = AUTH_USER_ID): stdClass

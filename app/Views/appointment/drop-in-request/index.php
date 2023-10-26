@@ -25,7 +25,7 @@
       </div>
       <!-- end page title -->
 
-      <?php if (count($navigators) > 0) : ?>
+      <?php if (!empty($navigators) && count($navigators) > 0) : ?>
         <div class="row">
 
           <div class="col-md-12">
